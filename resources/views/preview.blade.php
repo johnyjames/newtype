@@ -19,60 +19,48 @@
             var theater = new TheaterJS();
 
             theater
-                    .describe("Vader", {speed: .8, accuracy: .6, invincibility: 4}, "#vader")
+                    .describe("Vader", {speed: .8, accuracy: 1, invincibility: 4}, "#vader")
                     .describe("Luke", .6, "#luke");
 
             theater
-                    .on("*", function (eventName, originalEvent, sceneName, arg) {
-
+                    .write("Vader:{{ $link->vader }} ")
+                    .write({
+                        name: "call",
+                        args: [
+                            function () {
+                                var self = this;
+                                $('body').animate({backgroundColor: "#fff"}, 'slow');
+                                setTimeout(function () {
+                                    self.next();
+                                    console.log('going to second');
+                                }, 1000);
+                            },
+                            true
+                        ]
                     })
-                    .on("say:start, erase:start", function (eventName) {
-                        var self = this,
-                                current = self.current.voice;
-
-                        self.utils.addClass(current, "saying");
-                    })
-                    .on("say:end, erase:end", function (eventName) {
-                        var self = this,
-                                current = self.current.voice;
-
-                        self.utils.removeClass(current, "saying");
+                    .write(function () {
+                        theater.play(false);
                     });
-
             theater
-//                    .write("Vader:How's that little novel you have been ", -3,"working on?")
-                //                    .write("Luke:Yeah i thought so")
-                    .write("Vader:{{ $link->vader }}")
-
-                    .write("Luke:{{ $link->luke }}")
-                 //   .write({ name: "call", args: [kill, true] })
+                    .write("Vader:{{ $link->luke }} ")
+                    .write({
+                        name: "call",
+                        args: [
+                            function () {
+                                setTimeout(function () {
+                                    theater.stop();
+                                    console.log('completed');
+                                }, 1000);
+                            },
+                            true
+                        ]
+                    })
                     .write(function () {
                         theater.play(false);
                     });
 
-            var body = document.getElementsByTagName("BODY")[0];
-
-            function toggleClass (className) {
-                if (typeof className !== "string") className = "red";
-
-                if (theater.utils.hasClass(body, className)) theater.utils.removeClass(body, className);
-                else theater.utils.addClass(body, className);
-            }
 
 
-            function kill () {
-                console.log('killing');
-                var self    = this,
-                        delay   = 300,
-                        i       = 0,
-                        timeout = setTimeout(function blink () {
-                            toggleClass("background-color-red");
-                            if (++i < 6) timeout = setTimeout(blink, delay);
-                            else self.next();
-                        }, delay);
-
-                return self;
-            }
             window.theater = theater;
         })();
     </script>

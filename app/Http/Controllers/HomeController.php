@@ -38,4 +38,5 @@ class HomeController extends Controller
         $link= Link::where('link',$slug)->first();
         return view('preview')->with('link',$link);
     }
+
 }
