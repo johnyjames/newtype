@@ -40,11 +40,14 @@
                     });
 
             theater
-                    .write("Vader:How's that little novel you have been ", -3,"working on?")
-                    .write("Luke:Yeah i thought so")
+//                    .write("Vader:How's that little novel you have been ", -3,"working on?")
+                //                    .write("Luke:Yeah i thought so")
+                    .write("Vader:{{ $link->vader }}")
+
+                    .write("Luke:{{ $link->luke }}")
                  //   .write({ name: "call", args: [kill, true] })
                     .write(function () {
-                        theater.play(true);
+                        theater.play(false);
                     });
 
             var body = document.getElementsByTagName("BODY")[0];

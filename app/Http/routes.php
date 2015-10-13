@@ -10,11 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+get('/','HomeController@welcome');
 
-get('/', function () {
-    return view('welcome');
-});
+post('/','HomeController@generate');
 
-get('/preview', function () {
-    return view('preview');
-});
+get('/{slug}','HomeController@preview');
+
+
