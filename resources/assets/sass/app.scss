@@ -2,56 +2,66 @@
  @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 //Custom Styles
-$black: #222;
-$white: #ededed;
-$red: #c92b2b;
+
 $spacing: 20px;
+//Colours
+$white: #ededed;
+//background colours
+$grey: #D8D8D8;
+$black: #34465C;
+$red:  #E55D4A;
+$orange: #F19439;
+$orchid: #A97CBE;
+$green: #46BD8E;
+$blue: #3B72BC;
+$darkBlue: #34465C;
 
 *, *:before, *:after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; width: 100%; height: 100%; }
 
-.outer {
-  display: table;
-  margin: 0 auto;
-  height: 100%;
-}
-
-.inner {
-  display: table-cell;
-  vertical-align: middle;
-
-}
-
-.wrapper {
-  width: 700px;
-}
-
 body {
-  font-family: 'Cutive', serif;
-  background-color: $black;
-  color: $white;
-  font-size: 14px;
-  transition: background-color 200ms ease-out;
 
-  &.light {
-    background-color: $white;
+  &.background-color-grey {
+    background-color: $grey;
     color: $black;
   }
 
-  &.blood {
+  &.background-color-black {
+    color: $white;
+    background-color: $black;
+  }
+
+  &.background-color-red {
     color: $white;
     background-color: $red;
   }
+
+  &.background-color-orange {
+    color: $black;
+    background-color: $orange;
+  }
+
+  &.background-color-orchid {
+    color: $black;
+    background-color: $orchid;
+  }
+
+  &.background-color-green {
+    color: $white;
+    background-color: $green;
+  }
+
+  &.background-color-blue {
+    color: $white;
+    background-color: $blue;
+  }
+
+  &.background-color-darkBlue {
+    color: $white;
+    background-color: $darkBlue;
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px solid;
-  display: inline-block;
-}
-
-p { margin: $spacing 0; padding: 0; }
 
 @keyframes caret {
   0%, 100% { opacity: 1; }
@@ -64,6 +74,15 @@ p { margin: $spacing 0; padding: 0; }
   line-height: 1.6;
 }
 
+.center {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 35%;
+  left: 25%;
+  margin-left: -25px; /* margin is -0.5 * dimension */
+  margin-top: -25px;
+}​
 .saying:after {
   content: "|";
   font-family: Arial, sans-serif;
@@ -73,31 +92,4 @@ p { margin: $spacing 0; padding: 0; }
   vertical-align: baseline;
   opacity: 1;
   animation: caret 500ms infinite;
-}
-
-pre {
-  font-size: 18px;
-  line-height: 1;
-  overflow: auto;
-  font-family: monospace;
-  background-color: $white;
-  color: $black;
-  margin: $spacing 0;
-  padding: $spacing / 2;
-
-  & + p {
-    margin-bottom: $spacing * 2;
-
-    #showlink { display: none; }
-    #hidelink { display: inline-block; }
-  }
-
-  &:target {
-    opacity: 0;
-
-    & + p {
-      #hidelink { display: none; }
-      #showlink { display: inline-block; }
-    }
-  }
 }
