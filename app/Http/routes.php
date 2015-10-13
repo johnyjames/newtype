@@ -12,5 +12,9 @@
 */
 
 get('/', function () {
+    return view('welcome');
+});
+
+get('/preview', function () {
     return view('preview');
 });
