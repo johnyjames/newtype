@@ -4,8 +4,18 @@
 
 @section('content')
     <div class="center scene">
-        <div> <span id="vader"></span></div>
-        <div> <span id="luke"></span></div>
+        <div> <span id="vader"></span><span id="luke" style="display: none;"></span></div>
+        <div class="row" id="share" style="display: none;">
+            <div class="col-md-6">
+                <h2>Create your own <a href="{{url()}}">here</a></h2>
+                <p>or</p>
+                <div class="form-group">
+                    <input  type="text" class="form-control" id="link" name="Link" value="{!! url($link->link) !!}">
+                </div>
+                <button  onclick="alert('how to share, johny?')" type="button" class="btn btn-info">Share</button>
+            </div>
+
+        </div>
     </div>
 @endsection
 
@@ -20,7 +30,7 @@
 
             theater
                     .describe("Vader", {speed: .8, accuracy: 1, invincibility: 4}, "#vader")
-                    .describe("Luke", .6, "#luke");
+                    .describe("Luke", {speed: .8, accuracy: 1, invincibility: 4}, "#luke")
 
             theater
                     .write("Vader:{{ $link->vader }} ")
@@ -29,27 +39,43 @@
                         args: [
                             function () {
                                 var self = this;
-                                $('body').animate({backgroundColor: "#fff"}, 'slow');
+                                {{--@if(filter_var($link->luke, FILTER_VALIDATE_URL)==FALSE)--}}
+                                    if(ValidURL("{{ $link->luke }}"))
+                                    {
+                                        window.location="{{ $link->luke }}";
+                                    }
+                                {{--@else--}}
+                                    //Has no valid url
+                                {{--@endif--}}
+
+
                                 setTimeout(function () {
-                                    self.next();
-                                    console.log('going to second');
+                                    $('#vader').hide('slow',function()
+                                    {
+                                        $('#luke').show('slow');
+                                        self.next();
+                                        console.log('going to second');
+                                    });
                                 }, 1000);
                             },
                             true
                         ]
-                    })
-                    .write(function () {
-                        theater.play(false);
                     });
+
+            //second scene
             theater
-                    .write("Vader:{{ $link->luke }} ")
+                    .write("Luke:{{ $link->luke }} ")
                     .write({
                         name: "call",
                         args: [
                             function () {
                                 setTimeout(function () {
-                                    theater.stop();
-                                    console.log('completed');
+                                    $('#luke').hide('slow',function(){
+                                        theater.stop();
+                                        $('#share').show('slow');
+                                        console.log('completed');
+                                    });
+
                                 }, 1000);
                             },
                             true
@@ -60,6 +86,19 @@
                     });
 
 
+            function ValidURL(str) {
+                var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                '(\\:\\d+)?(\/[-a-z\\d%_.~+]*)*'+ // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                '(\\#[-a-z\\d_]*)?$','i'); // fragment locater
+                if(!pattern.test(str)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
 
             window.theater = theater;
         })();
