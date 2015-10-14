@@ -6061,8 +6061,9 @@ body.background-color-darkBlue {
     opacity: 0; } }
 
 .scene {
-  font-size: 240%;
-  font-weight: 400;
+  font-family: 'Droid Sans';
+  font-size: 48px;
+  font-weight: bold;
   line-height: 1.6; }
 
 .center {
@@ -6078,8 +6079,8 @@ body.background-color-darkBlue {
 ​
 .saying:after {
   content: "|";
-  font-family: 'Droid Sans', sans-serif;
-  font-size: 1.2em;
+  font-family: 'Droid Sans';
+  font-size: 48px;
   line-height: 1;
   display: inline-block;
   vertical-align: baseline;
