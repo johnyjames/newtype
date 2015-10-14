@@ -14,4 +14,5 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix.sass('app.scss');
     mix.copy('bower_components/TheaterJS/build/theater.js', 'public/js/theater.js');
+    mix.copy('node_modules/bootstrap-sass/assets/javascripts/bootstrap.js', 'public/js/bootstrap.js');
 });

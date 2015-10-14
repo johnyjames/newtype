@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="row" style="margin-top: 5%;">
+    <div class="row" >
         <div class="col-md-3"></div>
         <div class="col-md-6">
 
@@ -22,6 +22,7 @@
                     <div class="form-group">
                         <label for="luke">Second Part</label>
                         <input readonly type="text" class="form-control" id="luke" name="luke" value="{{ $link->luke }}" placeholder="Not too bad!">
+                        <p class="help-block">Note: In second part, you can also paste a url to redirect.</p>
                     </div>
 
                     <div class="form-group">

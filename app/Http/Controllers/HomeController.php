@@ -23,10 +23,20 @@ class HomeController extends Controller
         $link =Link::where('vader',$request->vader)->where('luke',$request->luke)->first();
         if(!$link)
         {
-            //generate unique short urls
-            $request->merge(['link'=>base_convert(rand(10000,99999), 10, 36)]);
-           //create record in db
-            $link =Link::create($request->all());
+            if($request->getMethod()=='POST')
+            {
+                //generate unique short urls
+                $request->merge(['link'=>base_convert(rand(10000,99999), 10, 36)]);
+                //create record in db
+                $this->validate($request, [
+                    'vader' => 'required'
+                ],[
+                    'vader.required' => 'First part is required.',
+                ]);
+
+                $link =Link::create($request->all());
+            }
+
         }
 
         return view('welcome')->with('link',$link);
