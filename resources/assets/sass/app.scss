@@ -17,18 +17,25 @@ $blue: #3B72BC;
 $darkBlue: #34465C;
 
 *, *:before, *:after { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; width: 100%; height: 100%; }
+html, body { margin: 0; padding: 0; width: 100%; height: 100%;font-family: 'Droid Sans'; font-weight: bold; }
 
 body {
 
   &.background-color-grey {
     background-color: $grey;
     color: $black;
+
+    &.a {
+      color: $white;
+    }
   }
 
   &.background-color-black {
     color: $white;
     background-color: $black;
+    &.a {
+      color: $white;
+    }
   }
 
   &.background-color-red {
@@ -39,26 +46,41 @@ body {
   &.background-color-orange {
     color: $black;
     background-color: $orange;
+    &.a {
+      color: $black;
+    }
   }
 
   &.background-color-orchid {
     color: $black;
     background-color: $orchid;
+    &.a {
+      color: $black;
+    }
   }
 
   &.background-color-green {
     color: $white;
     background-color: $green;
+    &.a {
+      color: $white;
+    }
   }
 
   &.background-color-blue {
     color: $white;
     background-color: $blue;
+    &.a {
+      color: $white;
+    }
   }
 
   &.background-color-darkBlue {
     color: $white;
     background-color: $darkBlue;
+    &.a {
+      color: $white;
+    }
   }
 }
 

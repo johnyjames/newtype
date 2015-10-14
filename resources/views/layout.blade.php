@@ -2,8 +2,7 @@
 <html>
 <head>
     <title>Small App</title>
-
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Cutive">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/app.css">
 
 </head>
