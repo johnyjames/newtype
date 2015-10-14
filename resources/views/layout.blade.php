@@ -9,7 +9,7 @@
 <body class="background-color-@yield('background','white')">
     <div class="container" >
         @yield('header')
-        <div class="wrapper" style="margin-top: 5%;">
+        <div class="wrapper" style="margin-top: 10%;">
             @include('partials.alert-box')
             @yield('content')
         </div>

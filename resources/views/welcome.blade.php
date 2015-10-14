@@ -10,7 +10,7 @@
         <div class="col-md-6">
 
             @if(isset($link))
-                <div >
+                <div>
                     <div class="form-group">
                         <a href="/" class=" pull-right btn btn-default">Back</a>
                         <label></label>
@@ -19,19 +19,19 @@
                         <label for="vader">First Part</label>
                         <label class="form-control">{{ $link->vader }}</label>
                     </div>
+                    <div class="gap-90"></div>
                     <div class="form-group">
                         <label for="luke">Second Part</label>
                         <label class="form-control">{{ $link->luke }}</label>
                         <p class="help-block">Note: In second part, you can also paste a url to redirect.</p>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-control" id="link">{!! url($link->link) !!}</label>
-                    </div>
-
-                    <div class="form-group" style="text-align: center;">
-                        <button  onclick="copyToClipboard('#link')" type="button" class="btn btn-info btn-lg">Copy</button>
-                        <a href="{!! url($link->link) !!}" target="_blank" class="btn btn-primary btn-lg">Preview</a>
+                    <div>
+                        <input  style="width: 206px;margin-left: 125px;margin-bottom: 14px;" class="form-control" id="link" value="{!! url($link->link) !!}" readonly>
+                        <div style="text-align: center;width: 206px;margin-left: 125px;" >
+                            <button  style="width: 96px;"  onclick="copyToClipboard('#link')" type="button" class="btn btn-info btn-lg">Copy</button>
+                            <a       style="margin-left: 10px;width: 96px;"     href="{!! url($link->link) !!}" target="_blank" class="btn btn-primary btn-lg">Preview</a>
+                        </div>
                    </div>
 
                 </div>
@@ -48,12 +48,13 @@
                         <label for="vader">First Part</label>
                         <input type="text" class="form-control" id="vader" name="vader" placeholder="How are you today?">
                     </div>
+                    <div class="gap-90"></div>
                     <div class="form-group">
                         <label for="luke">Second Part</label>
                         <input type="text" class="form-control" id="luke" name="luke" placeholder="Not too bad!">
-                        <p class="help-block">Note: In second part, you can also paste a url to redirect.</p>
+                        <p class="help-block" style="height: 25px;">Note: In second part, you can also paste a url to redirect.</p>
                     </div>
-                    <div class="form-group" style="text-align: center;">
+                    <div style="text-align: center;width: 470px;">
                         <button type="submit" class="btn btn-success btn-lg ">Create Link to share</button>
                     </div>
                 </form>
@@ -69,7 +70,7 @@
 
         var $temp = $("<input>");
         $("body").append($temp);
-        $temp.val($(element).text()).select();
+        $temp.val($(element).val()).select();
         document.execCommand("copy");
         $temp.remove();
 
