@@ -11,8 +11,8 @@
 
             @if(isset($link))
                 <div>
-                    <div class="form-group">
-                        <a href="/" class=" pull-right btn btn-default">Back</a>
+                    <div class="form-group pull-right">
+                        <input class="pull-right" type="checkbox" name="record-mode-off" data-size="small" data-label-text="Record Mode">
                         <label></label>
                     </div>
                     <div class="form-group">
@@ -20,7 +20,7 @@
                         <input class="form-control" value="{{ $link->vader }}" readonly>
                         <p class="help-block">This is required field.</p>
                     </div>
-                    <div class="gap-90"></div>
+                    <div class="gap"></div>
                     <div class="form-group">
                         <label for="luke">Second Part</label>
                         <input class="form-control" value="{{ $link->luke }}" readonly>
@@ -42,7 +42,8 @@
             @else
                 <form method="post" action="/">
                     {!! csrf_field() !!}
-                    <div class="form-group">
+                    <div class="form-group pull-right">
+                        <input type="checkbox" name="record-mode-on" data-size="small" data-label-text="Record Mode" checked readonly>
                         <label></label>
                     </div>
                     <div class="form-group">
@@ -50,7 +51,7 @@
                         <input type="text" class="form-control" id="vader" name="vader" placeholder="How are you today?">
                         <p class="help-block">This is required field.</p>
                     </div>
-                    <div class="gap-90"></div>
+                    <div class="gap"></div>
                     <div class="form-group">
                         <label for="luke">Second Part</label>
                         <input type="text" class="form-control" id="luke" name="luke" placeholder="Not too bad!">
@@ -68,6 +69,19 @@
 
 @section('page-scripts')
 <script>
+
+    $("[name='record-mode-on']").bootstrapSwitch();
+    $("[name='record-mode-off']").bootstrapSwitch();
+
+    $("[name='record-mode-on']").on('switchChange.bootstrapSwitch', function(event, state) {
+
+    });
+
+    $("[name='record-mode-off']").on('switchChange.bootstrapSwitch', function(event, state) {
+        window.location='{{ url() }}';
+    });
+
+
     function copyToClipboard(element) {
 
         var $temp = $("<input>");

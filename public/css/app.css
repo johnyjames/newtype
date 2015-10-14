@@ -6106,6 +6106,9 @@ label {
 .btn-lg, .btn-group-lg > .btn, .btn-group-lg > .btn {
   height: 50px; }
 
+.bootstrap-switch-handle-on, .bootstrap-switch-label {
+  opacity: 1 !important; }
+
 /*Element specific custom styles*/
 .gap-height-14 {
   height: 14px; }
@@ -6113,7 +6116,7 @@ label {
 .gap-width-14 {
   width: 14px; }
 
-.gap-90 {
-  height: 90px; }
+.gap {
+  height: 45px; }
 
 /*# sourceMappingURL=app.css.map */

@@ -146,6 +146,11 @@ label
 {
   height: 50px;
 }
+
+.bootstrap-switch-handle-on,.bootstrap-switch-label
+{
+  opacity: 1 !important;
+}
 /*Element specific custom styles*/
 .gap-height-14
 {
@@ -155,7 +160,7 @@ label
 {
   width: 14px;
 }
-.gap-90
+.gap
 {
-  height: 90px;
+  height: 45px;
 }
