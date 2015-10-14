@@ -13,6 +13,16 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.sass('app.scss');
-    mix.copy('bower_components/TheaterJS/build/theater.js', 'public/js/theater.js');
+
+
+    //bootstrap
     mix.copy('node_modules/bootstrap-sass/assets/javascripts/bootstrap.js', 'public/js/bootstrap.js');
+
+    //theater
+    mix.copy('bower_components/TheaterJS/build/theater.js', 'public/js/theater.js');
+
+    //share button
+    mix.copy('node_modules/share-button/dist/share-button.css', 'public/css/share-button.css');
+    mix.copy('node_modules/share-button/dist/share-button.js',  'public/js/share-button.js');
+
 });

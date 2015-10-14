@@ -13,7 +13,8 @@
             <div class="form-group">
                 <input   type="text" class="form-control" id="link" name="Link" value="{!! url($link->link) !!}">
             </div>
-            <button  onclick="alert('how to share, johny?')" type="button" class="btn btn-info">Share</button>
+            {{--<button  onclick="alert('how to share, johny?')" type="button" class="btn btn-info">Share</button>--}}
+            <share-button></share-button>
         </div>
     </div>
 
@@ -103,4 +104,9 @@
             window.theater = theater;
         })();
     </script>
+
+    <script>
+        var shareButton = new ShareButton();
+    </script>
+
 @endsection

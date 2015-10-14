@@ -17,16 +17,16 @@
                     </div>
                     <div class="form-group">
                         <label for="vader">First Part</label>
-                        <input readonly type="text" class="form-control" id="vader" name="vader" value="{{ $link->vader }}" placeholder="How are you today?">
+                        <label class="form-control">{{ $link->vader }}</label>
                     </div>
                     <div class="form-group">
                         <label for="luke">Second Part</label>
-                        <input readonly type="text" class="form-control" id="luke" name="luke" value="{{ $link->luke }}" placeholder="Not too bad!">
+                        <label class="form-control">{{ $link->luke }}</label>
                         <p class="help-block">Note: In second part, you can also paste a url to redirect.</p>
                     </div>
 
                     <div class="form-group">
-                        <input  type="text" class="form-control" id="link" name="Link" value="{!! url($link->link) !!}">
+                        <label class="form-control" id="link">{!! url($link->link) !!}</label>
                     </div>
 
                     <div class="form-group" style="text-align: center;">
@@ -41,6 +41,9 @@
             @else
                 <form method="post" action="/">
                     {!! csrf_field() !!}
+                    <div class="form-group">
+                        <label></label>
+                    </div>
                     <div class="form-group">
                         <label for="vader">First Part</label>
                         <input type="text" class="form-control" id="vader" name="vader" placeholder="How are you today?">
@@ -66,7 +69,7 @@
 
         var $temp = $("<input>");
         $("body").append($temp);
-        $temp.val($(element).val()).select();
+        $temp.val($(element).text()).select();
         document.execCommand("copy");
         $temp.remove();
 
@@ -74,7 +77,7 @@
         $('#copy-alert').show();
         setTimeout(function() {
             $('#copy-alert').hide();
-        }, 1000);
+        }, 1500);
     }
 </script>
 @endsection
