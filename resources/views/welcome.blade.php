@@ -12,6 +12,10 @@
             @if(isset($link))
                 <div >
                     <div class="form-group">
+                        <a href="/" class=" pull-right btn btn-default">Back</a>
+                        <label></label>
+                    </div>
+                    <div class="form-group">
                         <label for="vader">First Part</label>
                         <input readonly type="text" class="form-control" id="vader" name="vader" value="{{ $link->vader }}" placeholder="How are you today?">
                     </div>
@@ -24,9 +28,10 @@
                         <input  type="text" class="form-control" id="link" name="Link" value="{!! url($link->link) !!}">
                     </div>
 
-                    <button  onclick="copyToClipboard('#link')" type="button" class="btn btn-info btn-lg">Copy</button>
-                    <a href="{!! url($link->link) !!}" target="_blank" class="btn btn-primary btn-lg">Preview</a>
-                    <a href="/" class=" pull-right btn btn-default">Back</a>
+                    <div class="form-group" style="text-align: center;">
+                        <button  onclick="copyToClipboard('#link')" type="button" class="btn btn-info btn-lg">Copy</button>
+                        <a href="{!! url($link->link) !!}" target="_blank" class="btn btn-primary btn-lg">Preview</a>
+                   </div>
 
                 </div>
                 <div style="padding: 10px;display: none;" id="copy-alert">
