@@ -42,6 +42,7 @@
                     <div class="form-group">
                         <label for="luke">Second Part</label>
                         <input type="text" class="form-control" id="luke" name="luke" placeholder="Not too bad!">
+                        <p class="help-block">Note: In second part, you can also paste a url to redirect.</p>
                     </div>
                         <button type="submit" class="btn btn-success">Create Link to share</button>
                 </form>
