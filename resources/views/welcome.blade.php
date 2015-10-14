@@ -11,8 +11,10 @@
 
             @if(isset($link))
                 <div>
-                    <div class="form-group pull-right">
-                        <input class="pull-right" type="checkbox" name="record-mode-off" data-size="small" data-label-text="Record Mode">
+                    <div class="form-group">
+                        <div class="pull-right">
+                            <input class="pull-right" type="checkbox" name="record-mode-off" data-size="small" data-label-text="Record Mode">
+                        </div>
                         <label></label>
                     </div>
                     <div class="form-group">
@@ -40,10 +42,13 @@
                     <p class="bg-info" style="padding: 10px;">Link has been copied to your clipboard.</p>
                 </div>
             @else
+
                 <form method="post" action="/">
                     {!! csrf_field() !!}
-                    <div class="form-group pull-right">
-                        <input type="checkbox" name="record-mode-on" data-size="small" data-label-text="Record Mode" checked readonly>
+                    <div class="form-group">
+                        <div class="pull-right">
+                            <input type="checkbox" name="record-mode-on" data-size="small" data-label-text="Record Mode" checked readonly>
+                        </div>
                         <label></label>
                     </div>
                     <div class="form-group">
