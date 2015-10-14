@@ -24,8 +24,8 @@
                         <input  type="text" class="form-control" id="link" name="Link" value="{!! url($link->link) !!}">
                     </div>
 
-                    <button  onclick="copyToClipboard('#link')" type="button" class="btn btn-info">Copy</button>
-                    <a href="{!! url($link->link) !!}" target="_blank" class="btn btn-primary">Preview</a>
+                    <button  onclick="copyToClipboard('#link')" type="button" class="btn btn-info btn-lg">Copy</button>
+                    <a href="{!! url($link->link) !!}" target="_blank" class="btn btn-primary btn-lg">Preview</a>
                     <a href="/" class=" pull-right btn btn-default">Back</a>
 
                 </div>
@@ -44,7 +44,9 @@
                         <input type="text" class="form-control" id="luke" name="luke" placeholder="Not too bad!">
                         <p class="help-block">Note: In second part, you can also paste a url to redirect.</p>
                     </div>
-                        <button type="submit" class="btn btn-success">Create Link to share</button>
+                    <div class="form-group" style="text-align: center;">
+                        <button type="submit" class="btn btn-success btn-lg ">Create Link to share</button>
+                    </div>
                 </form>
             @endif
         </div>
