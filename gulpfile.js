@@ -18,6 +18,11 @@ elixir(function(mix) {
     //bootstrap
     mix.copy('node_modules/bootstrap-sass/assets/javascripts/bootstrap.js', 'public/js/bootstrap.js');
 
+    //bootstrap-switch
+    mix.copy('node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css', 'public/css/bootstrap-switch.css');
+    mix.copy('node_modules/bootstrap-switch/dist/js/bootstrap-switch.js', 'public/js/bootstrap-switch.js');
+
+
     //theater
     mix.copy('bower_components/TheaterJS/build/theater.js', 'public/js/theater.js');
 

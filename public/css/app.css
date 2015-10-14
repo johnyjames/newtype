@@ -6006,16 +6006,16 @@ body.background-color-grey {
   background-color: #D8D8D8;
   color: #34465C; }
   body.background-color-grey.a {
-    color: #ededed; }
+    color: #ffffff; }
 
 body.background-color-black {
-  color: #ededed;
+  color: #ffffff;
   background-color: #34465C; }
   body.background-color-black.a {
-    color: #ededed; }
+    color: #ffffff; }
 
 body.background-color-red {
-  color: #ededed;
+  color: #ffffff;
   background-color: #E55D4A; }
 
 body.background-color-orange {
@@ -6031,22 +6031,22 @@ body.background-color-orchid {
     color: #34465C; }
 
 body.background-color-green {
-  color: #ededed;
+  color: #ffffff;
   background-color: #46BD8E; }
   body.background-color-green.a {
-    color: #ededed; }
+    color: #ffffff; }
 
 body.background-color-blue {
-  color: #ededed;
+  color: #ffffff;
   background-color: #3B72BC; }
   body.background-color-blue.a {
-    color: #ededed; }
+    color: #ffffff; }
 
 body.background-color-darkBlue {
-  color: #ededed;
+  color: #ffffff;
   background-color: #34465C; }
   body.background-color-darkBlue.a {
-    color: #ededed; }
+    color: #ffffff; }
 
 @-webkit-keyframes caret {
   0%, 100% {
@@ -6099,6 +6099,9 @@ label {
   width: 470px; }
   .form-control:focus {
     box-shadow: none !important; }
+
+.form-control[readonly] {
+  background-color: #ffffff !important; }
 
 .btn-lg, .btn-group-lg > .btn, .btn-group-lg > .btn {
   height: 50px; }

@@ -6,7 +6,7 @@
 $spacing: 20px;
 
 //Colours
-$white: #ededed;
+$white: #ffffff;
 //background colours
 $grey: #D8D8D8;
 $black: #34465C;
@@ -129,16 +129,18 @@ label
   font-family: 'Droid Sans', sans-serif;
   height: 50px;
   font-size: 20px;
+  width: 470px;
 
   &:focus
   {
     box-shadow: none !important;
   }
-
-  width: 470px;
 }
 
-
+.form-control[readonly]
+{
+  background-color: $white !important;
+}
 
 .btn-lg, .btn-group-lg > .btn
 {

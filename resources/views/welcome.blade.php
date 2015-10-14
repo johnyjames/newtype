@@ -17,12 +17,13 @@
                     </div>
                     <div class="form-group">
                         <label for="vader">First Part</label>
-                        <label class="form-control">{{ $link->vader }}</label>
+                        <input class="form-control" value="{{ $link->vader }}" readonly>
+                        <p class="help-block">This is required field.</p>
                     </div>
                     <div class="gap-90"></div>
                     <div class="form-group">
                         <label for="luke">Second Part</label>
-                        <label class="form-control">{{ $link->luke }}</label>
+                        <input class="form-control" value="{{ $link->luke }}" readonly>
                         <p class="help-block">Note: In second part, you can also paste a url to redirect.</p>
                     </div>
 
@@ -47,6 +48,7 @@
                     <div class="form-group">
                         <label for="vader">First Part</label>
                         <input type="text" class="form-control" id="vader" name="vader" placeholder="How are you today?">
+                        <p class="help-block">This is required field.</p>
                     </div>
                     <div class="gap-90"></div>
                     <div class="form-group">
