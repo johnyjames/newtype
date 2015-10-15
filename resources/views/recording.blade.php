@@ -15,7 +15,7 @@
             </tr>
             @foreach($part as $stroke)
                 <tr>
-                    <td>{{ $stroke->key }}</td>
+                    <td>{{ characterName($stroke->key) }}</td>
                     <td>
                         {{  $stroke->timeStamp  }}
                     </td>
