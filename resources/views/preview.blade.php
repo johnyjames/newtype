@@ -54,10 +54,7 @@
                                         //Indicator of redirection
                                         //$('#vader').html('Redirecting...');
 
-
                                         window.location=url;
-
-
 
                                     }
                                     else //not a url, play animation
@@ -84,9 +81,12 @@
                         args: [
                             function () {
                                 //theater.stop();
-                                $( "#share" ).fadeIn( 3000, function() {
-                                    $( "#shareBox" ).fadeIn( 100 );
+                                $( "#luke" ).fadeOut( 1000, function() {
+                                    $( "#share" ).fadeIn( 2000, function() {
+                                        $( "#shareBox" ).fadeIn( 100 );
+                                    });
                                 });
+
 
                                // $('#share').show(3000);
                                 console.log('completed');
