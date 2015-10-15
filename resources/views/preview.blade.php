@@ -52,15 +52,7 @@
                                         self.next();
                                     } );
                                 });
-
-//                                setTimeout(function () {
-//                                    $('#vader').hide('slow',function()
-//                                    {
-//                                        $('#luke').show();
-//                                        self.next();
-//                                        console.log('going to second');
-//                                    });
-//                                }, 1000);
+                                
                             },
                             true
                         ]
