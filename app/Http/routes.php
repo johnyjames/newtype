@@ -15,5 +15,6 @@ get('/','HomeController@welcome');
 post('/','HomeController@generate');
 
 get('/{slug}','HomeController@preview');
+get('/{slug}/recording','HomeController@recording');
 
 

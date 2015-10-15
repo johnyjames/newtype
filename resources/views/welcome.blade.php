@@ -65,7 +65,8 @@
                         <p class="help-block" style="height: 25px;">Note: In second part, you can also paste a url to redirect.</p>
                     </div>
                     <div style="text-align: center;width: 470px;">
-                        <button type="submit" class="btn btn-success btn-lg ">Create Link to share</button>
+                        <input type="hidden" id="keyStrokes" name="keyStrokes">
+                        <button type="submit" onclick="collectStrokesData()" class="btn btn-success btn-lg ">Create Link to share</button>
                     </div>
                 </form>
             @endif
@@ -103,6 +104,45 @@
         setTimeout(function() {
             $('#copy-alert').hide();
         }, 1500);
+    }
+
+
+
+    //Record the key strokes
+
+    var vaderKeyStrokes=[];
+    $('#vader').keydown(
+            function(e) {
+                vaderKeyStrokes.push(
+                        {
+                            'key':e.keyCode,
+                            'timeStamp' : e.timeStamp
+                        }
+                );
+            }
+    );
+
+    var lukeKeyStrokes=[];
+    $('#luke').keydown(
+            function(e) {
+                lukeKeyStrokes.push(
+                        {
+                            'key':e.keyCode,
+                            'timeStamp' : e.timeStamp
+                        }
+                );
+            }
+    );
+
+    function collectStrokesData()
+    {
+        var keyStrokes=[];
+
+        keyStrokes.push(vaderKeyStrokes);
+        keyStrokes.push(lukeKeyStrokes);
+
+        $('#keyStrokes').val(JSON.stringify(keyStrokes));
+        console.log(keyStrokes);
     }
 </script>
 @endsection

@@ -19,6 +19,7 @@ class HomeController extends Controller
 
     public function generate(Request $request)
     {
+
         //find if link is already created
         $link =Link::where('vader',$request->vader)->where('luke',$request->luke)->first();
         if(!$link)
@@ -47,6 +48,15 @@ class HomeController extends Controller
     {
         $link= Link::where('link',$slug)->first();
         return view('preview')->with('link',$link);
+    }
+
+    public function recording($slug)
+    {
+        $link= Link::where('link',$slug)->first();
+        if($link)
+            return view('recording')->with('link',$link);
+
+        return "Not found!";
     }
 
 }
