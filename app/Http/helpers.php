@@ -22,15 +22,15 @@ if (!function_exists('characterName')) {
      */
     function characterName($key)
     {
-        switch($key)
-        {
-            case 16:
-                $name='Del/Backspace';
-                break;
-            default:
-                $name =chr($key);
-        }
-
+//        switch($key)
+//        {
+//            case 16:
+//                $name='Del/Backspace';
+//                break;
+//            default:
+//                $name =chr($key);
+//        }
+        $name =chr($key);
         return $name;
     }
 }
