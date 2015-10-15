@@ -3,7 +3,9 @@
 @section('header')
     @include('partials.header')
 @endsection
-
+@section('page-styles')
+    <link rel="stylesheet" href="/css/bootstrap-switch.css">
+@endsection
 @section('content')
     <div class="row" >
         <div class="col-md-3"></div>
@@ -73,6 +75,7 @@
 @endsection
 
 @section('page-scripts')
+<script src="/js/bootstrap-switch.js"></script>
 <script>
 
     $("[name='record-mode-on']").bootstrapSwitch();

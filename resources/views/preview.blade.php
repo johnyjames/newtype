@@ -1,7 +1,9 @@
 @extends('layout')
 
 @section('background',backgroundChooser())
-
+@section('page-styles')
+    <link rel="stylesheet" href="/css/share-button.css">
+@endsection
 @section('content')
     <div class="center">
         <div class="scene">
@@ -24,6 +26,7 @@
 
 @section('page-scripts')
     <script src="js/theater.js"></script>
+    <script src="/js/share-button.js"></script>
     <script>
         (function () {
             "use strict";
