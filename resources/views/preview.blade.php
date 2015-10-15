@@ -42,17 +42,32 @@
                         args: [
                             function () {
                                 var self = this;
-                                    if(ValidURL("{{ $link->luke }}"))
+                                var url ="{{ $link->luke }}";
+                                    if(ValidURL(url))
                                     {
-                                        window.location="{{ $link->luke }}";
+                                        if (url.toLowerCase().indexOf("http://") < 0) // a url without http? add it.
+                                            url= 'http://'+url;
+
+                                        //Indicator of redirection
+                                        //$('#vader').html('Redirecting...');
+
+
+                                        window.location=url;
+
+
+
+                                    }
+                                    else //not a url, play animation
+                                    {
+                                        $( "#vader" ).fadeOut( 1000, function() {
+                                            $( "#luke" ).show('fast',function(){
+                                                self.next();
+                                            } );
+                                        });
                                     }
 
-                                $( "#vader" ).fadeOut( 1000, function() {
-                                    $( "#luke" ).show('fast',function(){
-                                        self.next();
-                                    } );
-                                });
-                                
+
+
                             },
                             true
                         ]
