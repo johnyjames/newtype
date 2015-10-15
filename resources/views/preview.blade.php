@@ -5,23 +5,40 @@
     <link rel="stylesheet" href="/css/share-button.css">
 @endsection
 @section('content')
-    <div class="center">
-        <div class="scene">
-            <div> <span id="vader"></span><span id="luke" style="display: none;"></span></div>
+    <div style="margin-top: 10%;">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="scene">
+                    <span id="vader"></span><span id="luke" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
         </div>
-        <div class="row col-md-4" id="share" style="display: none;text-align: center">
-            <div id="shareBox">
-                <h2>Create your own <a href="{{url()}}">here</a></h2>
-                <h4>or</h4>
-                <div class="form-group">
-                    <input   type="text" class="form-control" id="link" name="Link" value="{!! url($link->link) !!}">
+        <div class="row" id="share" style="display: none;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" id="shareBox">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center;">
+                        <h2>Create your own <a href="{{url()}}">here</a></h2>
+                        <h4>or</h4>
+                    </div>
+                    <div class="col-md-12" style="text-align: center;">
+                        <center>
+                            <div class="form-group" >
+                                <input type="text" class="form-control" id="link" name="Link" value="{!! url($link->link) !!}">
+                            </div>
+                        </center>
+                    </div>
+                    <div class="col-md-12" style="text-align: center;">
+                        <share-button></share-button>
+                    </div>
                 </div>
                 {{--<button  onclick="alert('how to share, johny?')" type="button" class="btn btn-info">Share</button>--}}
-                <share-button></share-button>
             </div>
+            <div class="col-md-3"></div>
         </div>
     </div>
-
 @endsection
 
 @section('page-scripts')
