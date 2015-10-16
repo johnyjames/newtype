@@ -107,42 +107,49 @@
     }
 
 
+    @if(!isset($link))
 
-    //Record the key strokes
+        var Recorder = {
+            //store the time an action occurred and the resulting state in an object
+            //don't use an array because they are not sparse - interstitial keys
+            //will have to be iterated over
+            record: {},
 
-    var vaderKeyStrokes=[];
-    $('#vader').keydown(
-            function(e) {
-                vaderKeyStrokes.push(
-                        {
-                            'key':e.keyCode,
-                            'timeStamp' : e.timeStamp
-                        }
-                );
+            init: function( recorderId,disk) {
+                this.recorder = document.getElementById( recorderId );
+                this.recorder.addEventListener( 'focus', function() {
+                    Recorder.record = {};
+                    this.value = '';//clear on re focus? not sure
+                }, false );
+
+                this.recorder.addEventListener( 'keyup', function( e ) {
+                    Recorder.record[ (new Date()).getTime() ] = this.value;
+                }, false );
+
+                this.recorder.addEventListener( 'blur', function( e ) {
+                    disk.push(Recorder.record);
+//                    console.log('Recording stored.',disk);
+                }, false );
             }
-    );
 
-    var lukeKeyStrokes=[];
-    $('#luke').keydown(
-            function(e) {
-                lukeKeyStrokes.push(
-                        {
-                            'key':e.keyCode,
-                            'timeStamp' : e.timeStamp
-                        }
-                );
-            }
-    );
+        };
 
-    function collectStrokesData()
-    {
+        //Record first part key strokes
         var keyStrokes=[];
 
-        keyStrokes.push(vaderKeyStrokes);
-        keyStrokes.push(lukeKeyStrokes);
+        //First Part Recording
+        Recorder.init('vader',keyStrokes);
 
-        $('#keyStrokes').val(JSON.stringify(keyStrokes));
-        console.log(keyStrokes);
-    }
+        //Second Part Recording
+        Recorder.init('luke',keyStrokes);
+
+        function collectStrokesData()
+        {
+            $('#keyStrokes').val(JSON.stringify(keyStrokes));
+//            console.log(keyStrokes);
+
+        }
+    @endif
+
 </script>
 @endsection

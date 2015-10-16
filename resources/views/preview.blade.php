@@ -6,12 +6,14 @@
 @endsection
 @section('content')
     <div style="margin-top: 10%;">
-        <div class="row">
+        <div class="row" id="scene">
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <div class="scene">
-                    <span id="vader"></span><span id="luke" style="display: none;"></span>
+                    <span id="playback0"></span>
+                    <span id="playback1"></span>
                 </div>
+
             </div>
             <div class="col-md-3"></div>
         </div>
@@ -42,100 +44,123 @@
 @endsection
 
 @section('page-scripts')
-    <script src="js/theater.js"></script>
+
     <script src="/js/share-button.js"></script>
-    <script>
-        (function () {
-            "use strict";
-
-
-            var theater = new TheaterJS();
-
-            theater
-                    .describe("Vader", {speed: 0.6, accuracy: 1, invincibility: 4}, "#vader")
-                    .describe("Luke", {speed: 0.6, accuracy: 1, invincibility: 4}, "#luke")
-
-            theater
-                    .write("Vader:{{ $link->vader }}",600)
-                    .write({
-                        name: "call",
-                        args: [
-                            function () {
-                                var self = this;
-                                var url ="{{ $link->luke }}";
-                                    if(ValidURL(url))
-                                    {
-                                        if (url.toLowerCase().indexOf("http://") < 0) // a url without http? add it.
-                                            url= 'http://'+url;
-
-                                        //Indicator of redirection
-                                        //$('#vader').html('Redirecting...');
-
-                                        window.location=url;
-
-                                    }
-                                    else //not a url, play animation
-                                    {
-                                        $( "#vader" ).fadeOut( 1000, function() {
-                                            $( "#luke" ).show('fast',function(){
-                                                self.next();
-                                            } );
-                                        });
-                                    }
-
-
-
-                            },
-                            true
-                        ]
-                    });
-
-            //second scene
-            theater
-                    .write("Luke:{{ $link->luke }}",600)
-                    .write({
-                        name: "call",
-                        args: [
-                            function () {
-                                //theater.stop();
-                                $( "#luke" ).fadeOut( 1000, function() {
-                                    $( "#share" ).fadeIn( 2000, function() {
-                                        $( "#shareBox" ).fadeIn( 100 );
-                                    });
-                                });
-
-
-                               // $('#share').show(3000);
-                                console.log('completed');
-                            },
-                            true
-                        ]
-                    })
-                    .write(function () {
-                        theater.play(false);
-                    });
-
-
-            function ValidURL(str) {
-                var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
-                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-                '(\\:\\d+)?(\/[-a-z\\d%_.~+]*)*'+ // port and path
-                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-                '(\\#[-a-z\\d_]*)?$','i'); // fragment locater
-                if(!pattern.test(str)) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-
-            window.theater = theater;
-        })();
-    </script>
 
     <script>
         var shareButton = new ShareButton();
+
+        function ValidURL(str) {
+            var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i'); // fragment locater
+            if(!pattern.test(str)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        //*************Playback System********************************
+        var Recordings = <?php echo json_encode($link->keyStrokes ); ?>;
+        var slide = 0;
+
+        function playSlide()
+        {
+
+            slide++;
+
+            var record = Recordings[slide];
+
+            if(record)
+            {
+                var url ="{{ $link->luke }}";
+                if(ValidURL(url))
+                {
+                    if (url.toLowerCase().indexOf("http://") < 0) // a url without http? add it.
+                        url= 'http://'+url;
+
+                    //Indicator of redirection
+                    //$('#vader').html('Redirecting...');
+                    $('#playback0').fadeOut(1000,function(){
+                        window.location=url;
+                    });
+
+                }
+                else //not a url, play second animation
+                {
+                    $('#playback0').fadeOut(1000,function(){
+                        Player.play(record,1);
+                    });
+                }
+
+
+            }
+            else
+            {
+                if(slide > Recordings.length)
+                {
+                    $( "#scene" ).fadeOut( 1000, function() {
+                        $( "#share" ).fadeIn( 2000, function() {
+                            $( "#shareBox" ).fadeIn( 100 );
+                        });
+                    });
+                }
+
+            }
+
+        }
+
+        var Player = {
+            play: function(recording,slideIndex)
+            {
+               // console.log(slideIndex,'-slide - '+slide+' - playing');
+                //store the time the sequence started
+                //so that we can subtract it from subsequent actions
+                var mark = null;
+                for( var t in  recording ) {
+                    if( mark ) {
+                        var timeout = t - mark;
+                    } else {
+                        var timeout = 0;
+                        mark = t;
+                    }
+                    // We need to create a callback which closes over the value of t
+                    // because t would have changed by the time this is run
+                    setTimeout(Player.changeValueCallback( recording ,t,slideIndex), timeout );
+                }
+            },
+            changeValueCallback: function( recording,t,slideIndex ) {
+                return function() {
+                    var text = recording[t],
+                        length=Object.keys(recording).length,
+                        lastText =recording[Object.keys(recording)[length-1]];
+
+                    var el = '#playback'+slideIndex;
+                    $(el).html(text);
+
+                    if(text==lastText)
+                    {
+                        clearTimeout(recording.length);
+//                        $(el).html('');
+                        playSlide();
+                    }
+
+                }
+            }
+        };
+
+        if(Recordings)
+        {
+            Recordings=JSON.parse(Recordings);
+            //Play first part
+            Player.play(Recordings[0],0);
+        }
+
+
     </script>
 
 @endsection
