@@ -59,4 +59,9 @@ class HomeController extends Controller
         return "Not found!";
     }
 
+    public function playback()
+    {
+        return view('playback');
+    }
+
 }

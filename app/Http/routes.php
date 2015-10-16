@@ -10,11 +10,18 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+//playback test
+get('/playback','HomeController@playback');
+
+get('/{slug}','HomeController@preview');
+
+get('/{slug}/recording','HomeController@recording');
+
+
 get('/','HomeController@welcome');
 
 post('/','HomeController@generate');
 
-get('/{slug}','HomeController@preview');
-get('/{slug}/recording','HomeController@recording');
+
 
 
