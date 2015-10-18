@@ -70,44 +70,39 @@
 
         function playSlide()
         {
-
             slide++;
 
             var record = Recordings[slide];
+            var url ="{{ $link->luke }}";
 
             if(record)
             {
-                var url ="{{ $link->luke }}";
                 if(ValidURL(url))
                 {
                     if (url.toLowerCase().indexOf("http://") < 0) // a url without http? add it.
                         url= 'http://'+url;
-
-                    //Indicator of redirection
-                    //$('#vader').html('Redirecting...');
                     $('#playback0').fadeOut(1000,function(){
                         window.location=url;
                     });
-
                 }
                 else //not a url, play second animation
                 {
                     $('#playback0').fadeOut(1000,function(){
-                        Player.play(record,1);
+                        Player.play(record,slide);
                     });
                 }
 
-
             }
-            else
+            else//no slide
             {
-                if(slide > Recordings.length)
+                if(ValidURL(url)==false)
                 {
                     $( "#scene" ).fadeOut( 1000, function() {
                         $( "#share" ).fadeIn( 2000, function() {
-                            $( "#shareBox" ).fadeIn( 100 );
+                            $("#shareBox").fadeIn( 100 );
                         });
                     });
+
                 }
 
             }
@@ -145,7 +140,6 @@
                     if(text==lastText)
                     {
                         clearTimeout(recording.length);
-//                        $(el).html('');
                         playSlide();
                     }
 
@@ -156,8 +150,9 @@
         if(Recordings)
         {
             Recordings=JSON.parse(Recordings);
+           // console.log(Recordings);
             //Play first part
-            Player.play(Recordings[0],0);
+            Player.play(Recordings[slide],slide);
         }
 
 

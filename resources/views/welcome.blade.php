@@ -4,7 +4,7 @@
     @include('partials.header')
 @endsection
 @section('page-styles')
-    <link rel="stylesheet" href="/css/bootstrap-switch.css">
+
 @endsection
 @section('content')
     <div class="row" >
@@ -13,12 +13,6 @@
 
             @if(isset($link))
                 <div>
-                    <div class="form-group">
-                        <div class="pull-right">
-                            <input class="pull-right" type="checkbox" name="record-mode-off" data-size="small" data-label-text="Record Mode">
-                        </div>
-                        <label></label>
-                    </div>
                     <div class="form-group">
                         <label for="vader">First Part</label>
                         <input class="form-control" value="{{ $link->vader }}" readonly>
@@ -47,21 +41,16 @@
 
                 <form method="post" action="/">
                     {!! csrf_field() !!}
-                    <div class="form-group">
-                        <div class="pull-right">
-                            <input type="checkbox" name="record-mode-on" data-size="small" data-label-text="Record Mode" checked readonly>
-                        </div>
-                        <label></label>
-                    </div>
+
                     <div class="form-group">
                         <label for="vader">First Part</label>
-                        <input type="text" class="form-control" id="vader" name="vader" placeholder="How are you today?">
+                        <input type="text" onpaste="return false;" class="form-control" id="vader" name="vader" placeholder="How are you today?">
                         <p class="help-block">This is required field.</p>
                     </div>
                     <div class="gap"></div>
                     <div class="form-group">
                         <label for="luke">Second Part</label>
-                        <input type="text" class="form-control" id="luke" name="luke" placeholder="Not too bad!">
+                        <input type="text" class="form-control"  onpaste="return false;" id="luke" name="luke" placeholder="Not too bad!">
                         <p class="help-block" style="height: 25px;">Note: In second part, you can also paste a url to redirect.</p>
                     </div>
                     <div style="text-align: center;width: 470px;">
@@ -76,20 +65,68 @@
 @endsection
 
 @section('page-scripts')
-<script src="/js/bootstrap-switch.js"></script>
 <script>
+    // Register onpaste on inputs and textareas in browsers that don't
+    // natively support it.
+    (function () {
+        var onload = window.onload;
 
-    $("[name='record-mode-on']").bootstrapSwitch();
-    $("[name='record-mode-off']").bootstrapSwitch();
+        window.onload = function () {
+            if (typeof onload == "function") {
+                onload.apply(this, arguments);
+            }
 
-    $("[name='record-mode-on']").on('switchChange.bootstrapSwitch', function(event, state) {
+            var fields = [];
+            var inputs = document.getElementsByTagName("input");
+            var textareas = document.getElementsByTagName("textarea");
 
-    });
+            for (var i = 0; i < inputs.length; i++) {
+                fields.push(inputs[i]);
+            }
 
-    $("[name='record-mode-off']").on('switchChange.bootstrapSwitch', function(event, state) {
-        window.location='{{ url() }}';
-    });
+            for (var i = 0; i < textareas.length; i++) {
+                fields.push(textareas[i]);
+            }
 
+            for (var i = 0; i < fields.length; i++) {
+                var field = fields[i];
+
+                if (typeof field.onpaste != "function" && !!field.getAttribute("onpaste")) {
+                    field.onpaste = eval("(function () { " + field.getAttribute("onpaste") + " })");
+                }
+
+                if (typeof field.onpaste == "function") {
+                    var oninput = field.oninput;
+
+                    field.oninput = function () {
+                        if (typeof oninput == "function") {
+                            oninput.apply(this, arguments);
+                        }
+
+                        if (typeof this.previousValue == "undefined") {
+                            this.previousValue = this.value;
+                        }
+
+                        var pasted = (Math.abs(this.previousValue.length - this.value.length) > 1 && this.value != "");
+
+                        if (pasted && !this.onpaste.apply(this, arguments)) {
+                            this.value = this.previousValue;
+                        }
+
+                        this.previousValue = this.value;
+                    };
+
+                    if (field.addEventListener) {
+                        field.addEventListener("input", field.oninput, false);
+                    } else if (field.attachEvent) {
+                        field.attachEvent("oninput", field.oninput);
+                    }
+                }
+            }
+        }
+    })();
+</script>
+<script>
 
     function copyToClipboard(element) {
 
@@ -128,7 +165,7 @@
 
                 this.recorder.addEventListener( 'blur', function( e ) {
                     disk.push(Recorder.record);
-//                    console.log('Recording stored.',disk);
+                    console.log('Recording stored.',keyStrokes);
                 }, false );
             }
 
@@ -146,7 +183,7 @@
         function collectStrokesData()
         {
             $('#keyStrokes').val(JSON.stringify(keyStrokes));
-//            console.log(keyStrokes);
+            console.log(keyStrokes);
 
         }
     @endif
