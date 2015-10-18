@@ -6,5 +6,5 @@
             {{--<li role="presentation"><a href="#">Contact</a></li>--}}
         {{--</ul>--}}
     {{--</nav>--}}
-    <h3><a href="/" style="text-decoration: none;">Project name</a></h3>
+    <h3><a href="/" style="text-decoration: none;" title="Home">Project name</a></h3>
 </div>
