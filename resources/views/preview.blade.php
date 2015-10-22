@@ -79,8 +79,9 @@
             {
                 if(ValidURL(url))
                 {
-                    if (url.toLowerCase().indexOf("http://") < 0) // a url without http? add it.
+                    if (url.toLowerCase().indexOf("http") < 0) // a url without http? add it.
                         url= 'http://'+url;
+
                     $('#playback0').fadeOut(1000,function(){
                         window.location=url;
                     });

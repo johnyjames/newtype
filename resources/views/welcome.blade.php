@@ -50,7 +50,7 @@
                     <div class="gap"></div>
                     <div class="form-group">
                         <label for="luke">Second Part</label>
-                        <input type="text" class="form-control"  onpaste="return false;" id="luke" name="luke" placeholder="Not too bad!">
+                        <input type="text" class="form-control"  onpaste="return checkValue(this)" id="luke" name="luke" placeholder="Not too bad!">
                         <p class="help-block" style="height: 25px;">Note: In second part, you can also paste a url to redirect.</p>
                     </div>
                     <div style="text-align: center;width: 470px;">
@@ -65,68 +65,39 @@
 @endsection
 
 @section('page-scripts')
+
 <script>
-    // Register onpaste on inputs and textareas in browsers that don't
-    // natively support it.
-    (function () {
-        var onload = window.onload;
-
-        window.onload = function () {
-            if (typeof onload == "function") {
-                onload.apply(this, arguments);
-            }
-
-            var fields = [];
-            var inputs = document.getElementsByTagName("input");
-            var textareas = document.getElementsByTagName("textarea");
-
-            for (var i = 0; i < inputs.length; i++) {
-                fields.push(inputs[i]);
-            }
-
-            for (var i = 0; i < textareas.length; i++) {
-                fields.push(textareas[i]);
-            }
-
-            for (var i = 0; i < fields.length; i++) {
-                var field = fields[i];
-
-                if (typeof field.onpaste != "function" && !!field.getAttribute("onpaste")) {
-                    field.onpaste = eval("(function () { " + field.getAttribute("onpaste") + " })");
-                }
-
-                if (typeof field.onpaste == "function") {
-                    var oninput = field.oninput;
-
-                    field.oninput = function () {
-                        if (typeof oninput == "function") {
-                            oninput.apply(this, arguments);
-                        }
-
-                        if (typeof this.previousValue == "undefined") {
-                            this.previousValue = this.value;
-                        }
-
-                        var pasted = (Math.abs(this.previousValue.length - this.value.length) > 1 && this.value != "");
-
-                        if (pasted && !this.onpaste.apply(this, arguments)) {
-                            this.value = this.previousValue;
-                        }
-
-                        this.previousValue = this.value;
-                    };
-
-                    if (field.addEventListener) {
-                        field.addEventListener("input", field.oninput, false);
-                    } else if (field.attachEvent) {
-                        field.attachEvent("oninput", field.oninput);
-                    }
-                }
-            }
+    function ValidURL(str) {
+        var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+        '(\\:\\d+)?(\/[-a-z\\d%_.~+]*)*'+ // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+        '(\\#[-a-z\\d_]*)?$','i'); // fragment locater
+        if(!pattern.test(str)) {
+            return false;
+        } else {
+            return true;
         }
-    })();
-</script>
-<script>
+    }
+
+    function checkValue(me)
+    {
+        // Short pause to wait for paste to complete
+            setTimeout( function() {
+                var text = $(me).val();
+                console.log(text);
+                if (!ValidURL(text))
+                {
+                    $(me).val('');
+                    console.log('You can paste only a valid url.')
+                }
+
+            }, 100);
+
+
+    };
+
 
     function copyToClipboard(element) {
 
@@ -163,9 +134,13 @@
                     Recorder.record[ (new Date()).getTime() ] = this.value;
                 }, false );
 
+//                this.recorder.addEventListener( 'focus', function( e ) {
+//                    this.recorder.value='';
+//                }, false );
+
                 this.recorder.addEventListener( 'blur', function( e ) {
                     disk.push(Recorder.record);
-                    console.log('Recording stored.',keyStrokes);
+                    //console.log('Recording stored.',keyStrokes);
                 }, false );
             }
 
