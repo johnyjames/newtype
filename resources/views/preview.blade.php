@@ -68,52 +68,11 @@
         var Recordings = <?php echo json_encode($link->keyStrokes ); ?>;
         var slide = 0;
 
-        function playSlide()
-        {
-            slide++;
-
-            var record = Recordings[slide];
-            var url ="{{ $link->luke }}";
-
-            if(record)
-            {
-                if(ValidURL(url))
-                {
-                    if (url.toLowerCase().indexOf("http") < 0) // a url without http? add it.
-                        url= 'http://'+url;
-
-                    $('#playback0').fadeOut(1000,function(){
-                        window.location=url;
-                    });
-                }
-                else //not a url, play second animation
-                {
-                    $('#playback0').fadeOut(1000,function(){
-                        Player.play(record,slide);
-                    });
-                }
-
-            }
-            else//no slide
-            {
-                if(ValidURL(url)==false)
-                {
-                    $( "#scene" ).fadeOut( 1000, function() {
-                        $( "#share" ).fadeIn( 2000, function() {
-                            $("#shareBox").fadeIn( 100 );
-                        });
-                    });
-
-                }
-
-            }
-
-        }
 
         var Player = {
             play: function(recording,slideIndex)
             {
-               // console.log(slideIndex,'-slide - '+slide+' - playing');
+               // console.log('playing slide:',slide);
                 //store the time the sequence started
                 //so that we can subtract it from subsequent actions
                 var mark = null;
@@ -140,8 +99,46 @@
 
                     if(text==lastText)
                     {
-                        clearTimeout(recording.length);
-                        playSlide();
+                        slide++;
+                        //if part two is a url? redirect it
+                        var url ="{{ $link->luke }}";
+                        if(ValidURL(url))
+                        {
+                            if (url.toLowerCase().indexOf("http") < 0) // a url without http? add it.
+                                url= 'http://'+url;
+
+                            $('#playback0').fadeOut(1000,function(){
+                                window.location=url;
+                            });
+                        }
+                        else
+                        {
+                            if(Recordings.length>=slide)
+                            {
+                                // console.log('Slide completed:',slide,'of',Recordings.length);
+                                clearTimeout(recording.length);
+                                $('#playback0').fadeOut(500,function(){
+                                    $('#playback1').fadeIn(100,function(){
+                                        Player.play(Recordings[1],1);
+                                    });
+                                });
+
+                            }
+                            else
+                            {
+                                // console.log('Recordings.length>slide:',Recordings.length,slide,Recordings.length>slide);
+                                $('#playback1').fadeOut(1000,function(){
+                                    $( "#scene" ).fadeOut( 100, function() {
+                                        $( "#share" ).fadeIn( 2000, function() {
+                                            $("#shareBox").fadeIn( 100 );
+                                        });
+                                    });
+                                });
+
+                            }
+                        }
+
+
                     }
 
                 }
